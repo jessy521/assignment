@@ -50,6 +50,8 @@ async function getNewAccessToken(oAuth2Client) {
     output: process.stdout,
   });
 
+
+  // returning promises as this task needs some time
   return new Promise((resolve, reject) => {
     rl.question('Enter the authorization code: ', (code) => {
       rl.close();
