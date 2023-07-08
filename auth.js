@@ -36,6 +36,7 @@ async function authenticate() {
 
 // function for get new access token
 // this function will work if we get unable to use the token stores in token.json
+// opens a pop up for Google authentication and saves the tokens to './token.json'
 async function getNewAccessToken(oAuth2Client) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
@@ -72,6 +73,7 @@ async function getNewAccessToken(oAuth2Client) {
   });
 }
 
+// exporting module
 module.exports = {
   authenticate,
 };

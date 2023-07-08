@@ -1,11 +1,13 @@
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 
+// variables for the email functions
 const LABEL_NAME = 'Vacation Replies';
 const INTERVAL_MIN = 45;
 const INTERVAL_MAX = 120;
 
 // func to add label to the gmail
+// create a new label and return it
 async function createLabel(gmail) {
   try {
     const response = await gmail.users.labels.create({
@@ -23,6 +25,7 @@ async function createLabel(gmail) {
 }
 
 // function to get email from the thread 
+// returns an email object
 async function getEmailFromThread(gmail, threadId) {
   try {
     const response = await gmail.users.threads.get({
@@ -52,6 +55,7 @@ async function getEmailFromThread(gmail, threadId) {
 }
 
 // function to get the label id from the labels in user emails
+// return label id
 async function getLabelId(gmail) {
   try {
     const response = await gmail.users.labels.list({
@@ -72,6 +76,7 @@ async function getLabelId(gmail) {
 }
 
 // function to add label to the email after replying
+// return emailId
 async function addLabelToEmail(gmail, emailId) {
   try {
     await gmail.users.messages.modify({
@@ -90,6 +95,7 @@ async function addLabelToEmail(gmail, emailId) {
 }
 
 // func to email checking and replying in intervals
+// it doesn't return anything ,it  calls itself in an interval
 async function checkAndReplyEmails(gmail, transporter) {
   try {
     const response = await gmail.users.threads.list({
@@ -130,6 +136,8 @@ async function checkAndReplyEmails(gmail, transporter) {
 }
 
 // main func of the page
+// authenticated user is passes from auth 
+// email filtering,label adding, replying is done repeatedly 
 async function start(authClient) {
   try {
     const gmail = google.gmail({ version: 'v1', auth: authClient });
@@ -162,6 +170,7 @@ function getRandomInterval() {
   return Math.floor(Math.random() * (INTERVAL_MAX - INTERVAL_MIN + 1)) + INTERVAL_MIN;
 }
 
+// exporting module
 module.exports = {
   start,
 };
