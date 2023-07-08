@@ -44,6 +44,7 @@ async function getNewAccessToken(oAuth2Client) {
 
   console.log('Authorize this app by visiting this URL:', authUrl);
 
+  // make a readline interface in terminal
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
