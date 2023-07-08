@@ -1,4 +1,3 @@
-// emailResponder.js
 const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
 
